@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age-Calculator</title>
+    <link rel="stylesheet" href="index.css">
+    <script type="module" defer>
+        import { DateTime } from "https://cdn.jsdelivr.net/npm/luxon@3/build/es6/luxon.js";
+        const now = DateTime.now();
+        const birthDate = document.querySelector(".birth-date");
+        const btn = document.getElementById("submit-date");
+        const age = document.getElementById("age");
+
+        btn.addEventListener("click", () => {
+            const input = birthDate.value;
+            if (input) {
+                const date = DateTime.fromISO(input);
+                const diff = now.diff(date, ["years", "months"]).toObject();
+                const year = diff.years;
+                const month = Math.floor(diff.months);
+
+                age.innerHTML = "You are " + year + " years " + month + " month old";
+
+            }
+
+        })
+
+    </script>
+</head>
+
+<body>
+    <p>Enter your birt date:</p>
+    <input type="date" class="birth-date">
+    <button id="submit-date">Calcuate</button>
+    <p id="age"></p>
+</body>
+
+</html>
